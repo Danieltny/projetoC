@@ -1,11 +1,14 @@
 // Daniel Tan Yuan Rong R.A:11.120.483-0
 
+//biblioteca
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
 
+//função principal
 int main(){
+//indicar a entrada das variaveis
     int i;
     int opc;
     int dif;
@@ -27,7 +30,9 @@ int main(){
     int list[10][6];
     double div;
     double resp;
+    float r_div; 
     srand(time(NULL));
+    // mostragem das opções do usuario
     printf("menu:\n");
     printf("Escolha o nível de dificuldade das operações de 1 a 7:\n");
     scanf("%d",&dif);
@@ -289,11 +294,20 @@ int main(){
         case 4:
             printf("problemas de divisão\n");
             for (i=0; i < 10; i++){
+            if(y[i]==0){
+            div= (double)(*p_num1[i]++) / (double)(y[i]+1);
+            printf("Quanto é %d Dividido por %d?\n", x[i] , y[i]+1);
+            scanf("%lf",&resp);
+            }
+            else{
             div= (double)(*p_num1[i]++) / (double)(*p_num2[i]++);
             printf("Quanto é %d Dividido por %d?\n", x[i] , y[i]);
             scanf("%lf",&resp);
-            printf("%f",resp);
-            if (round(resp*100)/100==round(div*100)/100){
+            }
+            resp=floorf(resp * 100) / 100;
+            r_div = floorf(div * 100) / 100;
+            printf("%.2f\n",r_div);
+            if (resp==r_div){
                 menc = rand() % 4;
                     switch (menc){
 		            case 0:
@@ -328,7 +342,7 @@ int main(){
 			        break;
                 }
             }
-            printf("A resposta é %.2f\n",div);
+            printf("A resposta é %.2f\n",r_div);
             }
             break;
         case 5:
@@ -337,12 +351,12 @@ int main(){
                 rad = rand() % 4;
                 if(rad==0){
                     mist= (*p_num1[i]++) + (*p_num2[i]++);
-                    printf("Quanto é %d somando por %d?\n", x[i] , y[i]);
+                    printf("Quanto é %d somado por %d?\n", x[i] , y[i]);
                     scanf("%lf",&resp);
                 }
                 else if (rad==1){
                     mist= (*p_num1[i]++) - (*p_num2[i]++);
-                    printf("Quanto é %d subtraindo por %d?\n", x[i] , y[i]);
+                    printf("Quanto é %d subtraido por %d?\n", x[i] , y[i]);
                     scanf("%lf",&resp);
                 }
                 else if (rad==2){
@@ -351,10 +365,19 @@ int main(){
                     scanf("%lf",&resp);
                 }
                 else if (rad==3){
-                    mist= (*p_num1[i]++) / (*p_num2[i]++);
-                    printf("Quanto é %d Dividido por %d?\n", x[i] , y[i]);
-                    scanf("%lf",&resp);
-                }
+                    if(y[i]==0){
+                      div= (double)(*p_num1[i]++) / (double)(y[i]+1);
+                      printf("Quanto é %d Dividido por %d?\n", x[i] , y[i]+1);
+                      scanf("%lf",&resp);
+                     }
+                    else{
+                      div= (double)(*p_num1[i]++) / (double)(*p_num2[i]++);
+                      printf("Quanto é %d Dividido por %d?\n", x[i] , y[i]);
+                      scanf("%lf",&resp);
+                    }
+                    resp=floorf(resp * 100) / 100;
+                    mist = floorf(div * 100) / 100;
+                    }
             if (resp==mist){
                 menc = rand() % 4;
                     switch (menc){
@@ -398,6 +421,7 @@ int main(){
     else{
         printf("escolha um valor valido");
     }
+    printf("voce acertou %d\n",cert);
     med=cert*10;
     printf("voce acertou %d\n",cert);
     printf("voce acertou %d%%\n",med);
